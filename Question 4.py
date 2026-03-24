@@ -9,7 +9,7 @@ X = data.data
 y = data.target
 
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, stratify=y, random_state=42
+    X, y, test_size=0.2, random_state=42, stratify=y
 )
 
 scaler = StandardScaler()
@@ -19,13 +19,9 @@ X_test = scaler.transform(X_test)
 model = MLPClassifier(hidden_layer_sizes=(16,), max_iter=500, random_state=42)
 model.fit(X_train, y_train)
 
-print("Training Accuracy:", accuracy_score(y_train, model.predict(X_train)))
+print("Train Accuracy:", accuracy_score(y_train, model.predict(X_train)))
 print("Test Accuracy:", accuracy_score(y_test, model.predict(X_test)))
 
-# Discussion
-# Feature scaling is important for neural networks because they’re sensitive to the size
-# of the input values. If one feature has much larger numbers than others,
-# it can mess up the learning process.
-#
-# An epoch is just one full pass through the entire training dataset.
-# The model usually needs multiple epochs to learn properly.
+# Discussion:
+# Scaling is needed for gradient-based learning
+# Epoch = one full pass through dataset
