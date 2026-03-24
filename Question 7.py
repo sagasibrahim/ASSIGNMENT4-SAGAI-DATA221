@@ -4,13 +4,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
-# Load
 (X_train, y_train), (X_test, y_test) = fashion_mnist.load_data()
-
 X_test = X_test / 255.0
 X_test = X_test.reshape(-1, 28, 28, 1)
 
-# You MUST re-create same model OR load weights if saved
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
@@ -25,15 +22,11 @@ model = Sequential([
 model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
-
-# QUICK TRAIN (needed so predictions work)
 (X_train, y_train), _ = fashion_mnist.load_data()
 X_train = X_train / 255.0
 X_train = X_train.reshape(-1, 28, 28, 1)
 
 model.fit(X_train, y_train, epochs=3)
-
-# Predictions
 preds = model.predict(X_test)
 pred_classes = np.argmax(preds, axis=1)
 
@@ -44,7 +37,6 @@ sns.heatmap(cm, annot=True, fmt='d')
 plt.title("CNN Confusion Matrix")
 plt.show()
 
-# Show misclassified images
 misclassified = np.where(pred_classes != y_test)[0]
 
 for i in range(3):

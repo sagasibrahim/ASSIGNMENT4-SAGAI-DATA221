@@ -15,7 +15,6 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-# Decision Tree
 dt = DecisionTreeClassifier(max_depth=3)
 dt.fit(X_train, y_train)
 dt_cm = confusion_matrix(y_test, dt.predict(X_test))
@@ -25,7 +24,6 @@ sns.heatmap(dt_cm, annot=True, fmt='d')
 plt.title("Decision Tree CM")
 plt.show()
 
-# Neural Network
 scaler = StandardScaler()
 X_train_s = scaler.fit_transform(X_train)
 X_test_s = scaler.transform(X_test)
